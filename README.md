@@ -15,10 +15,17 @@ This repository contains practical configurations and setups for Linux-based ser
 - Ansible (Linux Server Patching, Manual Patching & App Deployment) 
 
 
-Each configuration includes:
-- Setup steps
-- Configuration files
-- Commands used
-- Troubleshooting notes
+---
 
-Each project will have its own folder with full documentation.
+# Project Structure
+
+Each project contains:
+
+* `README.md` → Overview and architecture
+* `setup/` → Installation steps
+* `configs/` → Configuration files
+* `scripts/` → Automation scripts
+* `screenshots/` → Proof of execution
+* `troubleshooting.md` → Issues and fixes
+
+---
