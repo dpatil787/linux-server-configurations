@@ -128,8 +128,7 @@ systemctl start nfs-server
 systemctl enable nfs-server
 systemctl status nfs-server
 
-![Service Running](images/service.png)
-
+![Service Running](images/1-Service.png)
 
 Now We will create a Share Directory: 
 
@@ -160,7 +159,10 @@ main configuration file here is /etc/exports
 
 > vi /etc/exports ( we will write a configuration block here ) 
 /mnt/nfs_shares/docs  192.168.253.129(rw,sync,no_all_squash,root_squash) 192.168.253.130(rw,sync,no_all_squash,root_squash)   or /mnt/nfs_shares/docs  192.168.253.0/24(rw,sync,no_all_squash,root_squash)
- - this is to allow all machines within network to access the share
+
+![Export Configuration](images/2-export.png)
+
+- this is to allow all machines within network to access the share
 
 wq! (Save).
 
@@ -182,64 +184,89 @@ now we will run command > exportfs -arv (exportfs -arv re-reads /etc/exports and
 exporting 192.168.253.129:/mnt/nfs_shares/docs
 exporting 192.168.253.130:/mnt/nfs_shares/docs
 
-
-
-
-
+![Exportfs Output](images/3-exportfs.png)
 
 
 We will configure our firewall and add nfs service. so firewall wont block incoming/outgoing traffic for nfs service.
 >firewall-cmd --permanent --add-service=nfs --zone=public
+
 We can also add rpcbind service in firewall, rpcbind is service which redirects client to port number on which NFS Service is running in NFSv4 it is added by default , but however we still need to add rpc service in firewall.
 > firewall-cmd --permanent --add-service=rpc-bind --zone=public
+
 We will add mountd service in firewall as well , as mountd service is that checks client permissions, when client mount an export & interact with NFS Server. 
 >firewall-cmd --permanent --add-service=mountd --zone=public
+
 >firewall-cmd --reload 
 > firewall-cmd --list-all ( check and verify is services is added or not)
+
 (Please note even if you add only NFSv4 , rpcbind and mountd will automatically get added in firewall)
+
 Now We will configure our client machine: 
+
 Lets Provide a static hostname : 
 > hostnamectl set-hostname NFSCLIENT
+
 > hostname ( to verify if name is set)
 > Reboot
+
 (to install nfs package on client machine)  >dnf install nfs-utils –y
+
 From NFS server , we have exported a share (Filesystem, so on this client machine we will verify if  we are able to view it. 
+
 > showmount -e 192.168.253.128
 O/p : Export list for 192.168.253.128:
 /mnt/nfs_shares/docs 192.168.253.130,192.168.253.129
+
+
 Here we are able to see details of our shared file system,
+
 Now we will create a directory on client machine on which we will mount this share  (> mkdir -p /mnt/client_share) 
+
 > cd /mnt 
 > mount -t nfs 192.168.253.128:/mnt/nfs_shares/docs /mnt/client_share
 > df -hT  
+
 & here we can see that our share has been mounted (192.168.253.128:/mnt/nfs_shares/docs nfs4       17G  2.0G   15G  12% /mnt/client_share)  & type of this share is nfs4.
- 
+
+
+![Mount Verification](images/4-mounts.png)
+
+
 Now we will go on Server machine and we will create a file in our NFS share.
+
 > cd /mnt/nfs_shares/docs
 > echo Dnyanesh is learning Devops and Linux Administration > servernfs.txt
 > ls -lrth ( Here we can see file has been created.
+
 Now we will go on NFS Client machine
 > cd /mnt/client_share 
 > ls -lrth ( here we will able to see the file name servernfs.txt & owner is root)
+
 Here, we can see
 -rw-r--r--. 1 root     root     30 Mar 30 15:56 servernfs.txt       (files created on server show owner as root as direct server access not affected by NFS options) 
  -rwxrwxrwx. 1 nobody   nobody   61 Mar 30 15:32 nfsclient.txt    (Client root files show owner nobody because root_squash is active) 
 -rw-r--r--. 1 dnyanesh dnyanesh 26 Mar 30 15:52 usernfs.txt        (Client user files show actual username because no_all_squash is active)
 
+![Root Squash Behavior](images/5-rootsquash.png)
+
 Root_squash behavior here file name clientnfs is created from root account of client. Usernfsfile.txt is created by user dnyanesh on client file.
  
 Now we will disable (root_squash)
+
 On NFS Server 
 > vi /etc/exports
 /mnt/nfs_shares/docs  192.168.253.129(rw,sync,no_all_squash,no_root_squash) 192.168.253.130(rw,sync,no_all_squash,no_root_squash)
 save wq!
+
 > systemctl restart nfs-server.service
+
 Now go on Client Machine, login with root account
 > cd /mnt/client_share
 > touch norootsquash.txt (create a file name norootsquash.txt) 
 > ls -lrth 
 O/p : -rw-r--r--. 1 root     root      0 Mar 30 16:07 norootsquash.txt (so here we can see owner of this file is root & not nobody as earlier)
 
+![No Root Squash Behavior](images/6-norootsquash.png)
  
 So similarly if we check from server machine we will able to view the same. Owner of norootsquash.txt is root) 
 Hence it is not recommended, the root user have full privileges and can do anything. Which is also security concern)
@@ -260,7 +287,9 @@ Now Go on Client machine and login with user dnyanesh
 > vi allsquash.txt ( insert some data and save) 
 wq!
 > ls -lrth 
- 
+
+![All Squash Behavior](images/7-allsquash.png)
+
 so we can see here again nobody is owner/Group  of this file allsquash.txt , as we have enable squashing for normal users as well)
 to unmount share on client machine 
 >umount /mnt/client_share
@@ -270,12 +299,16 @@ We will rectify our export file configuration
 >vi /etc/exports
 /mnt/nfs_shares/docs  192.168.253.129(rw,sync,no_all_squash,root_squash) 192.168.253.130(rw,sync,no_all_squash,root_squash)   
 wq!
+
 Systems mentioned in /etc/exports files will only able to access and mount the file sharing 
+
 We can also make an entry in fstab to make this entry permanent.
+
 On Client Machine : 
 > vi /etc/fstab
 Go to end of File & make an entry of our share 
 192.168.253.128:/mnt/nfs_shares/docs /mnt/client_share nfs defaults,_netdev 0 0
+
 Server doesn’t need fstab for export , /etc/fstab entry on CLIENT is used to mount NFS share automatically after reboot.
 
 
