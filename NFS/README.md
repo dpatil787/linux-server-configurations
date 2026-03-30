@@ -195,7 +195,7 @@ systemctl start nfs-server
 systemctl enable nfs-server
 systemctl status nfs-server
 
-![Service Running](1-Service.png)
+![Service Running](images/1-Service.png)
 
 Step 2: Create a Share Directory
 
