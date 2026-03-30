@@ -92,10 +92,9 @@ NFS Works on Client-Server Model
 - **Performance** depends on network, file access becomes slow, application response time increases, and system may appear laggy.
 - **Single point of failure:** If NFS Goes down, all client lose access. Logs stop writing and application depending on NFS will fail
 - **Security:** By default, NFS is not much secure, as it based on IP trust, and no strong authentication is there and data is not encrypted.
-[O
 > NFS is mostly used in Small environment & Simple shared storage
 
-[I---
+`---
 
 ## Modern Alternatives of NFS
 
