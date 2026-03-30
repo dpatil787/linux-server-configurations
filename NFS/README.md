@@ -1,6 +1,8 @@
 ## NFS Server
 
-NFS stands for Network File System. NFS is a protocol that allows one system to share its files and directories with other systems over a network. NFS makes a remote directory on another machine behave as if it is part of your local system. Instead of copying files between servers, multiple systems can directly access the same shared storage.
+NFS stands for Network File System.
+
+NFS (Network File System) is a protocol that allows one system to share its files and directories with other systems over a network. NFS makes a remote directory on another machine behave as if it is part of your local system. Instead of copying files between servers, multiple systems can directly access the same shared storage.
 
 - **Port number of NFS:** 2049
 - NFS is used for Linux-to-Linux file sharing.
@@ -91,10 +93,16 @@ This file handles mapping of user and group IDs between server and client.
 ## Limitations of NFS
 
 - **Performance depends on network:** File access becomes slow, application response time increases, and system may appear laggy.
-- **Single point of failure:** If NFS goes down, all clients lose access. Logs stop writing and applications depending on NFS will fail.
+OBOBOB- **Single point of failure:** If NFS goes down, all clients lose access. Logs stop writing and applications depending on NFS will fail.
 - **Security:** By default, NFS is not much secure, as it is based on IP trust, with no strong authentication and data is not encrypted.
-- NFS is mostly used in small environments and simple shared storage.
+OBOBOB
+---
 
+## NFS is Mostly Used In
+
+- Small environments
+OBOBOB- Simple shared storage
+OBOBOB
 ---
 
 ## Modern Alternatives to NFS
@@ -109,9 +117,13 @@ This file handles mapping of user and group IDs between server and client.
 
 ## NFS in Kubernetes
 
-NFS is commonly used as a persistent volume in Kubernetes. An NFS export is defined as a PersistentVolume, and Pods claim it with a PersistentVolumeClaim. This provides a simple way to give stateful applications persistent storage without deploying complex storage solutions.
+NFS is commonly used as a persistent volume in Kubernetes. An NFS export is defined as a PersistentVolume, and Pods claim it with a PersistentVolumeClaim.
 
-The Kubernetes control plane does not manage NFS. It simply mounts the NFS share on the node where the Pod runs. The NFS server must be maintained separately.
+This provides a simple way to give stateful applications persistent storage without deploying complex storage solutions.
+
+The Kubernetes control plane does not manage NFS. It simply mounts the NFS share on the node where the Pod runs.
+
+The NFS server must be maintained separately.
 
 ---
 
@@ -119,7 +131,8 @@ The Kubernetes control plane does not manage NFS. It simply mounts the NFS share
 
 ### What is NFS and why would you use it?
 
-NFS is a protocol for sharing files over a network. I would use it when multiple servers need access to the same files, such as shared home directories, web application assets, or backup storage. It is simple to configure and works well for environments that do not need complex distributed filesystem features.
+NFS is a protocol for sharing files over a network. I would use it when multiple servers need access to the same files, such as shared home directories, web application assets, or backup storage. 
+It is simple to configure and works well for environments that do not need complex distributed filesystem features.
 
 ### How do you export a directory on an NFS server?
 
@@ -150,15 +163,19 @@ It occurs when a client tries to access a file that was removed or changed on th
 ## Troubleshooting Common Issues
 
 ### Permission Denied
+
 The client IP is not allowed in `/etc/exports`, or export options are too restrictive. Check `/etc/exports` and run `exportfs -a` after changes.
 
 ### Stale File Handle
+
 The directory on the server was removed or changed while the client still had it mounted. Unmount and remount the share to fix.
 
 ### Connection Refused
+
 NFS service is not running or firewall is blocking ports. Check service status and firewall rules.
 
 ### Slow Performance
+
 Caused by network latency, `sync` option, or slow disk I/O on server. Consider using `async` or improving network.
 
 ---
@@ -173,21 +190,38 @@ Set hostname:
 hostnamectl set-hostname NFSServer
 hostname
 
-## Hands-on Practical Steps
+### Install NFS Server & enable NFS Service 
 
-### Step 1: Install NFS Server
-
-```bash
 dnf install nfs-utils -y
-
-### Start & enable NFS Service
-```bash
 systemctl start nfs-server
 systemctl enable nfs-server
 systemctl status nfs-server
-```
 
+![Service Running](images/1-Service.png)
 
+Step 2: Create a Share Directory
+
+mkdir -p /mnt/nfs_shares/docs
+ls -ld /mnt/nfs_shares/docs
+
+We can see owner and group is root for our share. We want to make user nobody as owner of this directory so we need to change owner and permissions.
+
+chown -R nobody:nobody /mnt/nfs_shares/docs
+
+(Here we used user nobody because special system user with minimal privileges & mapped via root_squash to prevent root level access from client system.
+We don't use our regular user here as it's not suitable for NFS exports that multiple clients access.)
+
+ls -ld /mnt/nfs_shares/docs
+
+Output: We can now see owner and group is now user nobody (nobody nobody).
+
+To see more details about user nobody: cat /etc/passwd | grep nobody
+
+Output: nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+
+This means nobody is a special system user with UID 65534, no login shell, and minimal privileges. When user has ID 65534, it means it is a user with low privileges.
+
+Now we want to use this share as read-write access, so client machine users can create files as well. We need to give them full permissions.
 
 
 
