@@ -87,14 +87,14 @@ NFS Works on Client-Server Model
 
 ---
 
-## Limitation of NFS
+## Limitations of NFS
 
 - **Performance** depends on network, file access becomes slow, application response time increases, and system may appear laggy.
 - **Single point of failure:** If NFS Goes down, all client lose access. Logs stop writing and application depending on NFS will fail
 - **Security:** By default, NFS is not much secure, as it based on IP trust, and no strong authentication is there and data is not encrypted.
 > NFS is mostly used in Small environment & Simple shared storage
 
-`---
+---
 
 ## Modern Alternatives of NFS
 
@@ -125,7 +125,7 @@ The NFS server must be maintained separately.
 ```bash
 # Set hostname
 hostnamectl set-hostname NFSServer
-[Ohostname
+hostname
 
 # Install NFS Server
 dnf install nfs-utils -y
