@@ -93,16 +93,14 @@ This file handles mapping of user and group IDs between server and client.
 ## Limitations of NFS
 
 - **Performance depends on network:** File access becomes slow, application response time increases, and system may appear laggy.
-OBOBOB- **Single point of failure:** If NFS goes down, all clients lose access. Logs stop writing and applications depending on NFS will fail.
+**Single point of failure:** If NFS goes down, all clients lose access. Logs stop writing and applications depending on NFS will fail.
 - **Security:** By default, NFS is not much secure, as it is based on IP trust, with no strong authentication and data is not encrypted.
-OBOBOB
 ---
 
 ## NFS is Mostly Used In
 
 - Small environments
-OBOBOB- Simple shared storage
-OBOBOB
+-Simple shared storage
 ---
 
 ## Modern Alternatives to NFS
@@ -197,7 +195,7 @@ systemctl start nfs-server
 systemctl enable nfs-server
 systemctl status nfs-server
 
-![Service Running](images/1-Service.png)
+![Service Running](1-Service.png)
 
 Step 2: Create a Share Directory
 
