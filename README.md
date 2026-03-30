@@ -12,12 +12,20 @@ This repository contains practical configurations and setups for Linux-based ser
 - Jenkins
 - Monitoring (Prometheus + Grafana)
 - Rsyslog
-- Ansible (Linux Server Patching , Manual Patching & App Deployment) 
+- Ansible (Linux Server Patching, Manual Patching & App Deployment) 
 
 
-Each configuration includes:
-- Setup steps
-- Configuration files
-- Commands used
-- Troubleshooting notes
+---
 
+# Project Structure
+
+Each project contains:
+
+* `README.md` → Overview and architecture
+* `setup/` → Installation steps
+* `configs/` → Configuration files
+* `scripts/` → Automation scripts
+* `screenshots/` → Proof of execution
+* `troubleshooting.md` → Issues and fixes
+
+---
