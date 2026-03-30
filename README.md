@@ -22,10 +22,10 @@ This repository contains practical configurations and setups for Linux-based ser
 Each project contains:
 
 * `README.md` → Overview and architecture
-* `setup/` → Installation steps
-* `configs/` → Configuration files
-* `scripts/` → Automation scripts
-* `screenshots/` → Proof of execution
-* `troubleshooting.md` → Issues and fixes
+Installation steps
+Configuration files
+Automation scripts
+screenshots
+troubleshooting Notes.
 
 ---
