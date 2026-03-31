@@ -1,7 +1,7 @@
 # Jenkins Server Configuration
 
 ![Linux](https://img.shields.io/badge/Linux-Jenkins-blue?style=for-the-badge&logo=linux)
-![Jenkins](https://img.shields.io/badge/Jenkins-Automation-red?style=for-the-badge&logo=jenkins)
+
 
 > **Please note:** This is not a complete Jenkins CI/CD Course or Tutorial. Here we are trying to learn Installation and Configuration of Jenkins Server from Linux Server admin's POV
 
@@ -258,8 +258,6 @@ firewall-cmd --add-port=8080/tcp --zone=public --permanent
 firewall-cmd --reload
 firewall-cmd --list-all
 ```
-
-![Firewall Configuration](images/1-firewall.png)
 
 ---
 
