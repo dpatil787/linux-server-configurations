@@ -390,5 +390,14 @@ Jenkins logs are stored at `/var/log/jenkins/jenkins.log`.
 | Build fails immediately | Missing plugin or wrong config | Check console output for exact error |
 
 ---
+## Result
+
+- Jenkins installed successfully  
+- Service running on port 8080  
+- Web UI accessible  
+- Initial setup completed  
+
+This setup can be extended further to create pipelines and automate deployments.
+
 
 *Document prepared as part of DevOps Home Lab — Linux Server Configuration Series*
