@@ -362,4 +362,4 @@ We can also see stage Visualization: Click on Pipeline, from left menu inside bu
 This setup can be extended further to create pipelines and automate deployments.
 
 
-*Document prepared as part of DevOps Home Lab — Linux Server Configuration Series*
+*Document prepared as part of DevOps Home Lab — Linux Server Configuration*
