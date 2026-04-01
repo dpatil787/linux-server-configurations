@@ -339,55 +339,6 @@ We can also see stage Visualization: Click on Pipeline, from left menu inside bu
 
 ![Pipeline Visualization](images/8-pipelinevisualization.png)
 
----
-
-# Interview Questions
-
-**Q: What is Jenkins and why is it used?**
-
-Jenkins is an open-source automation tool used for Continuous Integration and Continuous Delivery. It automates building, testing and deploying software. It is used because it integrates with almost every DevOps tool through plugins and helps teams detect failures early by automatically building and testing code on every commit.
-
----
-
-**Q: What is the difference between CI and CD in Jenkins?**
-
-CI (Continuous Integration) means Jenkins automatically builds and tests code every time a developer pushes changes. CD (Continuous Delivery) means after tests pass, Jenkins automatically deploys the application to staging or production environments.
-
----
-
-**Q: What is a Jenkinsfile?**
-
-A Jenkinsfile is a text file that defines the entire CI/CD pipeline as code. It is stored in the source code repository. It allows pipeline to be versioned, reviewed and reused.
-
----
-
-**Q: What is the difference between Declarative and Scripted Pipeline?**
-
-Declarative pipeline is simpler and structured - it follows a fixed syntax. Scripted pipeline is more flexible and Groovy based - it gives more control but is more complex.
-
----
-
-**Q: What is Master-Agent architecture in Jenkins?**
-
-Master is the central Jenkins server that manages jobs, schedules builds and serves the web UI. Agent is a separate machine that executes the actual build jobs. This allows Jenkins to scale by distributing work across multiple machines.
-
----
-
-**Q: What are executors in Jenkins?**
-
-Executor is a slot on a node that runs one job at a time. A node can have multiple executors to run parallel builds.
-
----
-
-**Q: What is the default port of Jenkins?**
-
-Jenkins runs on port 8080 by default. We can change it from `/etc/sysconfig/jenkins`. Agent to master communication uses port 50000.
-
----
-
-**Q: Where are Jenkins logs stored?**
-
-Jenkins logs are stored at `/var/log/jenkins/jenkins.log`.
 
 ---
 
