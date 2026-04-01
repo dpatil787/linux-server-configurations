@@ -97,10 +97,10 @@ NFS Works on Client-Server Model
 
 ## Limitations of NFS
 
-- **Performance** depends on network, file access becomes slow, application response time increases, and system may appear laggy.
-- **Single point of failure:** If NFS Goes down, all client lose access. Logs stop writing and application depending on NFS will fail
-- **Security:** By default, NFS is not much secure, as it based on IP trust, and no strong authentication is there and data is not encrypted.
-> NFS is mostly used in Small environment & Simple shared storage
+- **Performance** depends on the network; file access becomes slow, application response time increases, and the system may appear laggy.
+- **Single point of failure:** If NFS goes down, all clients lose access. Logs stop writing, and the application depending on NFS will fail
+- **Security:** By default, NFS is not very secure, as it is based on IP trust, and there is no strong authentication, and data is not encrypted.
+> NFS is mostly used in small environments & Simple shared storage
 
 ---
 
@@ -126,7 +126,7 @@ The NFS server must be maintained separately.
 
 ---
 
-## Hands-on Practical Steps
+## Installation Guide
 
 ### Configure NFS Server
 
@@ -204,7 +204,7 @@ Add configuration block:
 /mnt/nfs_shares/docs 192.168.253.0/24(rw,sync,no_all_squash,root_squash)
 ```
 
-Save: `wq!`
+Save
 
 Here, 192.168.253.129 192.168.253.130 are ip address of machines who will able to access share and gets below permissions:
 
@@ -238,13 +238,13 @@ We will configure our firewall and add nfs service. so firewall wont block incom
 firewall-cmd --permanent --add-service=nfs --zone=public
 ```
 
-We can also add rpcbind service in firewall, rpcbind is service which redirects client to port number on which NFS Service is running in NFSv4 it is added by default , but however we still need to add rpc service in firewall.
+We can also add the rpcbind service in firewall. rpcbind is a service that redirects clients to the port number on which the NFS Service is running in NFSv4. It is added by default, but we still need to add the RPC service to the firewall.
 
 ```bash
 firewall-cmd --permanent --add-service=rpc-bind --zone=public
 ```
 
-We will add mountd service in firewall as well , as mountd service is that checks client permissions, when client mount an export & interact with NFS Server.
+We will add the mountd service in the firewall as well, as mountd service is that checks client permissions when client mount an export & interact with NFS Server.
 
 ```bash
 firewall-cmd --permanent --add-service=mountd --zone=public
@@ -252,7 +252,7 @@ firewall-cmd --reload
 firewall-cmd --list-all   # check and verify is services is added or not
 ```
 
-> Please note even if you add only NFSv4 , rpcbind and mountd will automatically get added in firewall
+Please note even if you add only NFSv4 , rpcbind and mountd will automatically get added in firewall
 
 ---
 
@@ -285,7 +285,7 @@ mkdir -p /mnt/client_share
 cd /mnt
 mount -t nfs 192.168.253.128:/mnt/nfs_shares/docs /mnt/client_share
 df -hT
-# here we can see that our share has been mounted
+# Here we can see that our share has been mounted
 # 192.168.253.128:/mnt/nfs_shares/docs nfs4 17G 2.0G 15G 12% /mnt/client_share
 # & type of this share is nfs4.
 ```
@@ -304,7 +304,7 @@ echo Dnyanesh is learning Devops and Linux Administration > servernfs.txt
 ls -lrth   # Here we can see file has been created.
 ```
 
-Now we will go on NFS Client machine
+Now we will go to the NFS Client machine
 
 ```bash
 cd /mnt/client_share
@@ -319,7 +319,7 @@ Here, we can see:
 -rw-r--r--. 1 dnyanesh dnyanesh 26  usernfs.txt    # Client user files show actual username because no_all_squash is active
 ```
 
-Root_squash behavior here file name clientnfs is created from root account of client. Usernfsfile.txt is created by user dnyanesh on client file.
+Root_squash behavior here file name clientnfs is created from the root account of the client. Usernfsfile.txt is created by user dnyanesh on the client file.
 
 ![Root Squash Behavior](images/5-rootsquash.png)
 
@@ -338,7 +338,7 @@ vi /etc/exports
 ```
 
 ```bash
-# save wq!
+# save 
 systemctl restart nfs-server.service
 ```
 
@@ -363,7 +363,7 @@ Re-enable root_squash:
 ```bash
 vi /etc/exports
 # /mnt/nfs_shares/docs 192.168.253.129(rw,sync,no_all_squash,root_squash) 192.168.253.130(rw,sync,no_all_squash,root_squash)
-# save wq!
+# save
 systemctl restart nfs-server.service
 ```
 
@@ -415,7 +415,7 @@ vi /etc/exports
 # wq!
 ```
 
-> Systems mentioned in /etc/exports files will only be able to access and mount the file sharing
+Systems mentioned in /etc/exports files will only be able to access and mount the file sharing
 
 ---
 
@@ -433,7 +433,7 @@ Go to the end of the file & make an entry of our share:
 192.168.253.128:/mnt/nfs_shares/docs /mnt/client_share nfs defaults,_netdev 0 0
 ```
 
-Server doesn't need fstab for export, /etc/fstab entry on CLIENT is used to mount NFS share automatically after reboot.
+Server doesn't need fstab for export; the/etc/fstab entry on client side is used to mount the NFS share automatically after reboot.
 
 ---
 
@@ -455,5 +455,5 @@ Server doesn't need fstab for export, /etc/fstab entry on CLIENT is used to moun
 - How shared storage works in real environments
 
 
-*Document prepared as part of DevOps Home Lab — Linux Server Configuration Series*
+*Document prepared as part of DevOps Home Lab — Linux Server Configurations*
 
