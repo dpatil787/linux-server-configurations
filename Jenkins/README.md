@@ -300,6 +300,17 @@ Once Jenkins is logged in we can see a Dashboard where we can:
 - Set up an agent
 - Set up a Cloud
 
+## Basic Usage
+
+After setup, Jenkins can be used to create jobs.
+
+These jobs can automate tasks like:
+- running scripts
+- building applications
+- executing commands automatically
+
+This is how Jenkins is used in real environments for automation.
+
 ---
 
 # Pipeline
