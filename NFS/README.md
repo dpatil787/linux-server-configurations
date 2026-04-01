@@ -2,7 +2,15 @@
 
 ![NFS](https://img.shields.io/badge/Linux-NFS_Server-blue?style=for-the-badge&logo=linux)
 
+## What I Did
 
+In this setup, I configured an NFS server and client to understand how shared storage works in Linux environments.
+
+This includes:
+- Setting up an NFS server
+- Configuring exports and permissions
+- Mounting NFS on the client machine
+- Testing different behaviors (root_squash, no_root_squash, all_squash)
 ---
 
 ## What is NFS?
@@ -152,11 +160,11 @@ We can see owner and group is root for our share. We want to make user nobody as
 chown -R nobody: /mnt/nfs_shares/docs
 ```
 
-> Here we used user 'nobody' because Special system user with minimal privileges & mapped via root_squash to prevent root level access from client system. We don't use our regular user here as its not suitable for NFS exports that multiple client's access
+Here we used user 'nobody' because Special system user with minimal privileges & mapped via root_squash to prevent root level access from client system. We don't use our regular user here as its not suitable for NFS exports that multiple client's access
 
 ```bash
 ls -ld
-# o/p: We can now see owner and group is now user nobody (nobody nobody)
+# o/p: We can now see that the owner and group are now user nobody (nobody nobody)
 
 # To see more details about user nobody
 cat /etc/passwd | grep nobody
@@ -348,7 +356,7 @@ So similarly if we check from server machine we will able to view the same. Owne
 
 ![No Root Squash Behavior](images/6-norootsquash.png)
 
-> Hence it is not recommended, the root user have full privileges and can do anything. Which is also security concern.
+Hence it is not recommended, the root user have full privileges and can do anything. Which is also a security concern.
 
 Re-enable root_squash:
 
@@ -363,7 +371,7 @@ systemctl restart nfs-server.service
 
 ### Test all_squash (Demo Only)
 
-Now We will trying using (all_squash) instead of (no_all_squash), On server Machine:
+Now we will try using (all_squash) instead of (no_all_squash), on the server Machine:
 
 ```bash
 vi /etc/exports
@@ -378,7 +386,7 @@ vi /etc/exports
 systemctl restart nfs-server.service
 ```
 
-Now Go on Client machine and login with user dnyanesh:
+Now go to the client machine and log in with user dnyanesh:
 
 ```bash
 cd /mnt/client_share
@@ -386,7 +394,7 @@ vi allsquash.txt   # insert some data and save wq!
 ls -lrth
 ```
 
-so we can see here again nobody is owner/Group of this file allsquash.txt , as we have enable squashing for normal users as well.
+So we can see here again nobody is the owner/Group of this file allsquash.txt, as we have enabled squashing for normal users as well.
 
 ![All Squash Behavior](images/7-allsquash.png)
 
@@ -407,7 +415,7 @@ vi /etc/exports
 # wq!
 ```
 
-> Systems mentioned in /etc/exports files will only able to access and mount the file sharing
+> Systems mentioned in /etc/exports files will only be able to access and mount the file sharing
 
 ---
 
@@ -419,13 +427,13 @@ We can also make an entry in fstab to make this entry permanent. On Client Machi
 vi /etc/fstab
 ```
 
-Go to end of File & make an entry of our share:
+Go to the end of the file & make an entry of our share:
 
 ```
 192.168.253.128:/mnt/nfs_shares/docs /mnt/client_share nfs defaults,_netdev 0 0
 ```
 
-> Server doesn't need fstab for export , /etc/fstab entry on CLIENT is used to mount NFS share automatically after reboot.
+Server doesn't need fstab for export, /etc/fstab entry on CLIENT is used to mount NFS share automatically after reboot.
 
 ---
 
@@ -483,6 +491,13 @@ It occurs when a client tries to access a file that was removed or changed on th
 | Slow Performance | Caused by network latency, sync option, or slow disk I/O on server | Consider using async or improving network |
 
 ---
+## What I Learned
+
+- How NFS works internally
+- How permissions affect access
+- Why root_squash is important
+- How shared storage works in real environments
+
 
 *Document prepared as part of DevOps Home Lab — Linux Server Configuration Series*
 
