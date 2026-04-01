@@ -171,9 +171,9 @@ cat /etc/passwd | grep nobody
 # o/p : nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
 ```
 
-It does means nobody is a special system user with UID 65534, no login shell, and minimal privileges. When user have id : 65534 ( it means it is user with low privileges)
+It does mean nobody is a special system user with UID 65534, no login shell, and minimal privileges. When a user has an ID: 65534 ( it means it is a user with low privileges)
 
-Now we want to use this share as read write access, so client machine users will able to create files as well so we need to give them full permissions.
+Now we want to use this share as read-write access, so client machine users will be able to create files as well, so we need to give them full permissions.
 
 ```bash
 chmod -R 777 /mnt/nfs_shares/docs
@@ -434,50 +434,6 @@ Go to the end of the file & make an entry of our share:
 ```
 
 Server doesn't need fstab for export, /etc/fstab entry on CLIENT is used to mount NFS share automatically after reboot.
-
----
-
-## Interview Questions
-
-**Q: What is NFS and why would you use it?**
-
-NFS is a protocol for sharing files over a network. I would use it when multiple servers need access to the same files, such as shared home directories, web application assets, or backup storage. It is simple to configure and works well for environments that do not need complex distributed file system features.
-
----
-
-**Q: How do you export a directory on an NFS server?**
-
-I add an entry in /etc/exports specifying the directory, allowed clients, and options. Then I run exportfs -a to apply the changes and restart the nfs-server service.
-
----
-
-**Q: How do you mount an NFS share permanently on a client?**
-
-I add an entry in /etc/fstab with the server IP, export path, mount point, filesystem type nfs, and options like defaults,_netdev. The _netdev option ensures the system waits for the network before attempting the mount.
-
----
-
-**Q: What is root_squash and why is it important?**
-
-Root_squash maps the root user on the client to the nobody user on the server. This prevents a client with root access from having root privileges on the server. It is an important security feature that limits the impact of a compromised client.
-
----
-
-**Q: What is the difference between sync and async?**
-
-Sync confirms writes to disk before responding, ensuring data integrity. Async is faster but risks data loss if the server crashes. Sync is used for critical data, async for performance-sensitive temporary data.
-
----
-
-**Q: How do you check what directories an NFS server is sharing?**
-
-I use the command showmount -e server-ip. This lists all exports available from that server.
-
----
-
-**Q: What is a stale file handle error?**
-
-It occurs when a client tries to access a file that was removed or changed on the server while the client still had it mounted. It is fixed by unmounting and remounting the share on the client.
 
 ---
 
