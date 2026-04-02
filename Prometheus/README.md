@@ -1,8 +1,9 @@
 # Prometheus + Grafana Monitoring Stack
 
-![Linux](https://img.shields.io/badge/Linux-Monitoring-blue?style=for-the-badge&logo=linux)
-![Prometheus](https://img.shields.io/badge/Prometheus-Metrics-orange?style=for-the-badge&logo=prometheus)
-![Grafana](https://img.shields.io/badge/Grafana-Dashboards-red?style=for-the-badge&logo=grafana)
+![Linux](https://img.shields.io/badge/Linux-000000?style=for-the-badge&logo=linux&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
+![Monitoring](https://img.shields.io/badge/Monitoring-3178C6?style=for-the-badge)
 
 > Linux Server Monitoring Stack — CentOS / RHEL Based Setup
 > Multi-node monitoring with Prometheus, Node Exporter and Grafana Dashboard
@@ -244,10 +245,9 @@ firewall-cmd --reload
 ```
 
 Access Prometheus dashboard at `http://192.168.253.128:9090`
+![Prometheus Targets](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/1-target.png)
 
 Go to **Status → Targets** — Prometheus should be scraping itself. This confirms installation is successful.
-
-![Prometheus Targets](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/1-target.png)
 
 ---
 
@@ -325,7 +325,6 @@ At the end of the file add this block. YAML is space-sensitive so make sure inde
       - targets: ["192.168.253.128:9100"]
 ```
 
-![Prometheus Dashboard](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/3-prometheus.png)
 
 ```bash
 # Always validate config before restarting
@@ -340,8 +339,8 @@ Check Prometheus Targets page — both prometheus and node_exporter should show 
 ```
 http://192.168.253.128:9090/targets
 ```
+![Prometheus Dashboard](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/3-prometheus.png)
 
-![Grafana Prometheus Integration](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/4-grafanaprometheus.png)
 
 ---
 
@@ -395,11 +394,11 @@ Default login: `admin / admin` — change password on first login.
 - In URL field enter: `http://192.168.253.128:9090`
 - Click **Save & Test**
 
-![Data Source Verified](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/5-integration.png)
+![Grafana Prometheus Integration](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/4-grafanaprometheus.png)
 
 Green message should appear confirming data source is working.
 
-![Dashboard JSON Import](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/6-dashboardjsonimport.png)
+![Data Source Verified](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/5-integration.png)
 
 ---
 
@@ -413,6 +412,7 @@ Download JSON:
 ```
 https://grafana.com/api/dashboards/1860/revisions/latest/download
 ```
+![Dashboard JSON Import](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/6-dashboardjsonimport.png)
 
 - Go to **Dashboards** → **Import**
 - Click **Upload JSON file** → select downloaded file
@@ -420,8 +420,6 @@ https://grafana.com/api/dashboards/1860/revisions/latest/download
 - Click **Import**
 
 ![Local Dashboard](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/7-localdashboard.png)
-
-![prometheus.yml Config](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/8-prometheusyml.png)
 
 ---
 
@@ -503,6 +501,7 @@ Add both VMs at the end:
     static_configs:
       - targets: ["192.168.253.130:9100"]
 ```
+![prometheus.yml Config](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/8-prometheusyml.png)
 
 ```bash
 promtool check config /etc/prometheus/prometheus.yml
