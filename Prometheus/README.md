@@ -247,7 +247,7 @@ Access Prometheus dashboard at `http://192.168.253.128:9090`
 
 Go to **Status → Targets** — Prometheus should be scraping itself. This confirms installation is successful.
 
-![Prometheus Dashboard](images/3-prometheus.png)
+![Prometheus Targets](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/1-target.png)
 
 ---
 
@@ -307,7 +307,7 @@ firewall-cmd --reload
 
 Verify Node Exporter metrics endpoint at `http://192.168.253.128:9100/metrics` — we should see a long list of metrics.
 
-![Node Exporter Metrics](images/2-metrics.png)
+![Node Exporter Metrics](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/2-metrics.png)
 
 ---
 
@@ -325,7 +325,7 @@ At the end of the file add this block. YAML is space-sensitive so make sure inde
       - targets: ["192.168.253.128:9100"]
 ```
 
-![prometheus.yml Config](images/8-prometheusyml.png)
+![Prometheus Dashboard](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/3-prometheus.png)
 
 ```bash
 # Always validate config before restarting
@@ -341,7 +341,7 @@ Check Prometheus Targets page — both prometheus and node_exporter should show 
 http://192.168.253.128:9090/targets
 ```
 
-![Prometheus Targets](images/1-target.png)
+![Grafana Prometheus Integration](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/4-grafanaprometheus.png)
 
 ---
 
@@ -395,11 +395,11 @@ Default login: `admin / admin` — change password on first login.
 - In URL field enter: `http://192.168.253.128:9090`
 - Click **Save & Test**
 
-![Grafana Prometheus Integration](images/4-grafanaprometheus.png)
+![Data Source Verified](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/5-integration.png)
 
 Green message should appear confirming data source is working.
 
-![Data Source Verified](images/5-integration.png)
+![Dashboard JSON Import](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/6-dashboardjsonimport.png)
 
 ---
 
@@ -419,9 +419,9 @@ https://grafana.com/api/dashboards/1860/revisions/latest/download
 - Select **Prometheus** as data source
 - Click **Import**
 
-![Dashboard JSON Import](images/6-dashboardjsonimport.png)
+![Local Dashboard](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/7-localdashboard.png)
 
-![Local Dashboard](images/7-localdashboard.png)
+![prometheus.yml Config](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/8-prometheusyml.png)
 
 ---
 
@@ -515,7 +515,7 @@ Check targets page — all 3 VMs should show as UP.
 http://192.168.253.128:9090/targets
 ```
 
-![Updated Targets](images/9-targetupdated.png)
+![Updated Targets](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/9-targetupdated.png)
 
 ---
 
@@ -523,7 +523,7 @@ http://192.168.253.128:9090/targets
 
 The 1860 dashboard has a **job** dropdown at the top. After adding more VMs, each VM appears as a separate option. Select any VM to see its metrics. No changes needed in Grafana — Prometheus feeds the data automatically.
 
-![Linux Nodes in Grafana](images/10-linuxnodes.png)
+![Linux Nodes in Grafana](https://raw.githubusercontent.com/dpatil787/linux-server-configurations/main/Prometheus/images/10-linuxnodes.png)
 
 ---
 
