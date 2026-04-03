@@ -5,8 +5,6 @@ This repository contains practical configurations and setups for Linux-based ser
 ## Topics Covered
 - Nginx (Reverse Proxy, Load Balancer & SSL) with DNS integration
 - Apache Web Server (Reverse Proxy, Load Balancer & SSL) with DNS integration
-- FTP 
-- NTP
 - MySQL
 - Jenkins
 - Monitoring (Prometheus + Grafana)
