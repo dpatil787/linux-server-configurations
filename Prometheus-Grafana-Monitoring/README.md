@@ -437,6 +437,12 @@ The 1860 dashboard has a **job** dropdown at the top. Each VM appears as a separ
 | promtool check fails | YAML indentation error | Check spacing — YAML is space-sensitive |
 
 ---
+## Challenges I Faced
+
+1. **Grafana Dashboard Import Failed**
+   - Issue: Direct import by ID from grafana.com failed because the VM had no internet access
+   - Fix: Downloaded the JSON file on a Windows machine and uploaded it manually to Grafana
+--
 
 ## What's Next
 
