@@ -3,12 +3,13 @@
 This repository contains practical configurations and setups for Linux-based services.
 
 ## Topics Covered
+- Ansible (Linux Server Patching, Manual Patching & App Deployment)
 - Apache Web Server (Reverse Proxy, Load Balancer & SSL) with DNS integration
-- MySQL
+- DNS
 - Jenkins
+- MySQL
+- NFS
 - Monitoring (Prometheus + Grafana)
-- Rsyslog
-- Ansible (Linux Server Patching, Manual Patching & App Deployment) 
 
 ---
 
