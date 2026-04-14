@@ -3,14 +3,12 @@
 This repository contains practical configurations and setups for Linux-based services.
 
 ## Topics Covered
-- Nginx (Reverse Proxy, Load Balancer & SSL) with DNS integration
 - Apache Web Server (Reverse Proxy, Load Balancer & SSL) with DNS integration
 - MySQL
 - Jenkins
 - Monitoring (Prometheus + Grafana)
 - Rsyslog
 - Ansible (Linux Server Patching, Manual Patching & App Deployment) 
-
 
 ---
 
